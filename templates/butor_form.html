@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>
+{% if mode == "create" %}
+Új bútor
+{% else %}
+Bútor szerkesztése
+{% endif %}
+</h2>
+
+<form method="post" class="row g-3">
+
+    {% if mode == "create" %}
+    <div class="col-md-4">
+        <label class="form-label">Cikkszám</label>
+        <input name="cikkszam" class="form-control">
+    </div>
+    {% else %}
+    <div class="col-md-4">
+        <label class="form-label">Cikkszám</label>
+        <input class="form-control" value="{{ butor.cikkszam }}" readonly>
+    </div>
+    {% endif %}
+
+    <div class="col-md-4">
+        <label class="form-label">Név</label>
+        <input name="nev" class="form-control"
+            value="{% if butor %}{{ butor.nev }}{% endif %}">
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Súly (kg)</label>
+        <input name="suly" class="form-control"
+            value="{% if butor %}{{ butor.suly }}{% endif %}">
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Méret X</label>
+        <input name="x" class="form-control"
+            value="{% if butor %}{{ butor.x }}{% endif %}">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Méret Y</label>
+        <input name="y" class="form-control"
+            value="{% if butor %}{{ butor.y }}{% endif %}">
+    </div>
+    <div class="col-md-4">
+        <label class="form-label">Méret Z</label>
+        <input name="z" class="form-control"
+            value="{% if butor %}{{ butor.z }}{% endif %}">
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary">Mentés</button>
+        <a href="/butorok" class="btn btn-secondary">Mégse</a>
+    </div>
+</form>
+
+{% endblock %}

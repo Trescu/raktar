@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <title>Bútorok listája</title>
-</head>
-<body>
-    <h2>Bútorok listája</h2>
+{% extends "base.html" %}
+{% block content %}
 
-    <p><a href="/butor/uj">Új bútor felvétele</a></p>
+<h2>Bútorok</h2>
 
-    <table border="1" cellpadding="5" cellspacing="0">
-        <tr>
-            <th>Cikkszám</th>
-            <th>Név</th>
-            <th>Súly</th>
-            <th>Méretek (x × y × z)</th>
-        </tr>
-    </table>
-</body>
-</html>
+<form method="get" class="mb-3">
+    <input type="text" name="q" value="{{ q }}" class="form-control" placeholder="Keresés név szerint...">
+</form>
+
+<a href="/butor/uj" class="btn btn-success mb-3">Új bútor felvétele</a>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Cikkszám</th><th>Név</th><th>Súly</th><th>Méretek</th><th>Műveletek</th>
+    </tr>
+    {% for b in butorok %}
+    <tr>
+        <td>{{ b.cikkszam }}</td>
+        <td>{{ b.nev }}</td>
+        <td>{{ b.suly }} kg</td>
+        <td>{{ b.x }}×{{ b.y }}×{{ b.z }}</td>
+
+        <td>
+            <a href="/butor/{{ b.cikkszam }}/szerkeszt" class="btn btn-primary btn-sm">Szerkeszt</a>
+            <form method="post" action="/butor/{{ b.cikkszam }}/torol" style="display:inline">
+                <button class="btn btn-danger btn-sm">Törlés</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

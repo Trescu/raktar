@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Árlista</h2>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Cikkszám</th>
+        <th>Név</th>
+        <th>Listaár</th>
+        <th>Akciós ár</th>
+        <th>Mentés</th>
+    </tr>
+
+    {% for s in sorok %}
+    <tr>
+        <form method="post" action="/arak/{{ s.cikkszam }}">
+            <td>{{ s.cikkszam }}</td>
+            <td>{{ s.nev }}</td>
+            <td><input name="lista_ar" value="{{ s.lista_ar }}" class="form-control"></td>
+            <td><input name="akcios_ar" value="{{ s.akcios_ar }}" class="form-control"></td>
+            <td><button class="btn btn-primary btn-sm">Mentés</button></td>
+        </form>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

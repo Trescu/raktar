@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Raktárkészlet</h2>
+
+<form method="get" class="mb-3">
+    <select name="raktar" class="form-select" onchange="this.form.submit()">
+        <option value="">-- összes --</option>
+        {% for r in raktarak %}
+            <option value="{{ r.id }}" {% if r.id|string == selected %}selected{% endif %}>
+                {{ r.nev }}
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>Raktár</th>
+        <th>Cikkszám</th>
+        <th>Név</th>
+        <th>Mennyiség</th>
+    </tr>
+
+    {% for s in sorok %}
+    <tr>
+        <td>{{ s.raktar_nev }}</td>
+        <td>{{ s.cikkszam }}</td>
+        <td>{{ s.nev }}</td>
+        <td>{{ s.mennyiseg }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
