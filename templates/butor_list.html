@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <title>Bútorok listája</title>
-</head>
-<body>
-    <h2>Bútorok listája</h2>
+{% extends "base.html" %}
+{% block content %}
 
-    <p><a href="/butor/uj">Új bútor felvétele</a></p>
+<h1>Bútorok listája</h1>
 
-    <table border="1" cellpadding="5" cellspacing="0">
+<a href="/butor/uj" class="btn btn-primary">Új bútor felvétele</a>
+
+<table class="table table-striped mt-3">
+    <thead>
         <tr>
             <th>Cikkszám</th>
             <th>Név</th>
-            <th>Súly</th>
-            <th>Méretek (x × y × z)</th>
+            <th>Súly (kg)</th>
+            <th>X</th>
+            <th>Y</th>
+            <th>Z</th>
         </tr>
-    </table>
-</body>
-</html>
+    </thead>
+    <tbody>
+        {% for b in butorok %}
+        <tr>
+            <td>{{ b.cikkszam }}</td>
+            <td>{{ b.nev }}</td>
+            <td>{{ b.suly }}</td>
+            <td>{{ b.x }}</td>
+            <td>{{ b.y }}</td>
+            <td>{{ b.z }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
