@@ -180,6 +180,12 @@ def update_price(cikkszam):
     lista_ar = request.form["lista_ar"]
     akcios_ar = request.form["akcios_ar"]
 
+    # HA NEM SZÁM, LEGYEN NULL  <-- EZ A FONTOS FIX
+    if lista_ar.strip() == "" or lista_ar == "None":
+        lista_ar = None
+    if akcios_ar.strip() == "" or akcios_ar == "None":
+        akcios_ar = None
+
     conn = get_db_connection()
 
     exists = conn.execute(
@@ -202,6 +208,7 @@ def update_price(cikkszam):
 
     flash("Árak módosítva!", "success")
     return redirect(url_for("price_list"))
+
 
 
 #-------------------------------------------------------
