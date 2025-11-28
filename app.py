@@ -53,8 +53,8 @@ def butor_create():
         existing = conn.execute("SELECT * FROM butor WHERE cikkszam = ?", (cikkszam,)).fetchone()
         if existing:
             conn.close()
-        flash("Ez a cikkszám már létezik!", "Hiba")
-        return redirect(url_for("butor_create"))
+            flash("Ez a cikkszám már létezik!", "Hiba")
+            return redirect(url_for("butor_create"))
 
 
 
