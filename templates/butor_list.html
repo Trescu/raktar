@@ -16,6 +16,7 @@
         <th scope="col">X</th>
         <th scope="col">Y</th>
         <th scope="col">Z</th>
+        <th scope="col">&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -27,7 +28,8 @@
         <td>{{ b.x }}</td>
         <td>{{ b.y }}</td>
         <td>{{ b.z }}</td>
-        <td><a href="{{ url_for('butor_edit', cikkszam=b.cikkszam) }}" class="btn btn-sm btn-warning">Szerkesztés</a>
+        <td class="text-center">
+          <a href="{{ url_for('butor_edit', cikkszam=b.cikkszam) }}" class="btn btn-sm btn-warning">Szerkesztés</a>
           <form method="POST" action="{{ url_for('butor_delete', cikkszam=b.cikkszam) }}" style="display:inline;">
             <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Biztosan törölni szeretnéd ezt a bútort?');">Törlés</button>
           </form>    
