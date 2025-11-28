@@ -64,7 +64,6 @@ def butor_create():
 
 
         flash("Új bútor sikeresen hozzáadva!", "Sikeres")
-        return redirect(url_for("butor_list"))
     return render_template("butor_form.html")
 
 if __name__ == "__main__":
