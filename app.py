@@ -66,5 +66,46 @@ def butor_create():
         flash("Új bútor sikeresen hozzáadva!", "Sikeres")
     return render_template("butor_form.html")
 
+@app.route("/butor/<cikkszam>/szerkeszt", methods=["GET", "POST"])
+def butor_edit(cikkszam):
+    conn = get_db_connection()
+
+
+    if request.method == "GET":
+        row = conn.execute("SELECT * FROM butor WHERE cikkszam = ?", (cikkszam,)).fetchone()
+        conn.close()
+
+        if row is None:
+            flash("A megadott cikkszám nem található!", "Hiba")
+            return redirect(url_for("butor_list"))
+
+        return render_template(
+            "butor_form.html",
+            mode="edit",
+            cikkszam=row["cikkszam"],
+            nev=row["nev"],
+            suly=row["suly"],
+            x=row["x"],
+            y=row["y"],
+            z=row["z"]
+        )
+
+    nev = request.form.get("nev", "").strip()
+    suly = request.form.get("suly", "").strip()
+    x = request.form.get("x", "").strip()
+    y = request.form.get("y", "").strip()
+    z = request.form.get("z", "").strip()
+
+    conn.execute(
+        "UPDATE butor SET nev = ?, suly = ?, x = ?, y = ?, z = ? WHERE cikkszam = ?",
+        (nev, suly, x, y, z, cikkszam)
+    )
+    conn.commit()
+    conn.close()
+
+    flash("A bútor módosítása sikeres volt!", "Siker")
+    return redirect(url_for("butor_list"))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
