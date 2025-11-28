@@ -106,6 +106,23 @@ def butor_edit(cikkszam):
     flash("A bútor módosítása sikeres volt!", "Siker")
     return redirect(url_for("butor_list"))
 
+@app.route("/butor/<cikkszam>/torol", methods=["POST"])
+def butor_delete(cikkszam):
+    conn = get_db_connection()
+
+    conn.execute("DELETE FROM raktarkeszlet WHERE cikkszam = ?", (cikkszam,))
+
+    conn.execute("DELETE FROM armatrix WHERE cikkszam = ?", (cikkszam,))
+
+    conn.execute("DELETE FROM butor WHERE cikkszam = ?", (cikkszam,))
+
+    conn.commit()
+    conn.close()
+
+    flash("A bútor és a kapcsolt rekordok törlése sikeres volt!", "Siker")
+    return redirect(url_for("butor_list"))
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
